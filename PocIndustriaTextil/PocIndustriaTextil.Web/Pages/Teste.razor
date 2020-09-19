@@ -1,0 +1,8 @@
+﻿@page "/teste"
+
+<ul>
+    @foreach (var item in VM.Criancas)
+    {
+        <li>@item.Nome, @item.Idade</li>
+    }
+</ul>
