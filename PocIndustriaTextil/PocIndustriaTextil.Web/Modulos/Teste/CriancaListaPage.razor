@@ -1,0 +1,16 @@
+﻿@page "/criancas"
+
+<h3>
+    @VM.Title
+</h3>
+
+<ul>
+    @foreach (var item in VM.Items)
+    {
+        <li>@item.Nome, @item.Idade</li>
+    }
+</ul>
+
+<div>
+    <a class="btn btn-success" onclick="(()=> @VM.OnNovo())">Nova criança</a>
+</div> 

@@ -9,6 +9,6 @@ namespace PocIndustriaTextil.Core.Utils.Responses
         public bool Success { get; set; }
         public string Message { get; set; }
         public T Item { get; set; }
-        public IEnumerable<T> Items { get; set; }
+        public List<T> Items { get; set; }
     }
 }

@@ -1,0 +1,24 @@
+﻿@page "/criancas/novo"
+<h3>@VM.Title</h3>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Please enter your details</h5>
+        <EditForm Model="@VM.Item" OnValidSubmit="@VM.OnIncluir">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
+
+            <div class="form-group">
+                <label for="nome">Nome</label>
+                <InputText Id="nome" class="form-control" @bind-Value="VM.Item.Nome" />
+            </div>
+
+            <div class="form-group">
+                <label for="sobrenome">Sobrenome</label>
+                <InputNumber Id="sobrenome" class="form-control" @bind-Value="VM.Item.Idade" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </EditForm>
+    </div>
+</div>

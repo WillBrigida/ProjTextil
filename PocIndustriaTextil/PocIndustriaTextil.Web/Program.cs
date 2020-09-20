@@ -10,6 +10,9 @@ using Microsoft.Extensions.Logging;
 using PocIndustriaTextil.Core.Services.Api;
 using PocIndustriaTextil.Core;
 using PocIndustriaTextil.Core.Modulos.Acesso;
+using PocIndustriaTextil.Core.Modulos.Teste.ViewModel;
+using PocIndustriaTextil.Core.Services.Navigation;
+using PocIndustriaTextil.Web.Services;
 
 namespace PocIndustriaTextil.Web
 {
@@ -22,8 +25,15 @@ namespace PocIndustriaTextil.Web
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
             builder.Services.AddScoped<IApiService, ApiService>();
+            builder.Services.AddSingleton<INavigationService, Navigation>();
             builder.Services.AddTransient<CriancasViewModel>();
+            builder.Services.AddTransient<CriancaListaPageViewModel>();
+            builder.Services.AddTransient<CriancaPageViewModel>();
             builder.Services.AddTransient<CadastroViewModel>();
+
+
+            var host = builder.Build();
+            Container.Current.Services = host.Services;
 
             await builder.Build().RunAsync();
         }
