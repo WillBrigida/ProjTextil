@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PocIndustriaTextil.Mobile.Modulos.Acesso;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +11,7 @@ namespace PocIndustriaTextil.Mobile
         {
             InitializeComponent();
 
-            MainPage = new CriancasPage();
+            MainPage = new CadastroPage();
         }
 
         protected override void OnStart()

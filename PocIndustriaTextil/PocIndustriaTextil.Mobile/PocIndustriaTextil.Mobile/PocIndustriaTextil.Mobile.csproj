@@ -21,11 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Modulos\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Update="CriancasPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Modulos\Acesso\CadastroPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>

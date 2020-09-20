@@ -1,6 +1,6 @@
 ﻿namespace PocIndustriaTextil.Core.Model.DTO
 {
-    public class UsuarioCadastroDTO : UsuarioLoginDTO
+    public class UsuarioCadastroDTO 
     {
         public string Nome { get; set; }
         public string Sobrenome { get; set; }

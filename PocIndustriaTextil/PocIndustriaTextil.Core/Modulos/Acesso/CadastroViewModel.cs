@@ -1,13 +1,16 @@
-﻿using PocIndustriaTextil.Core.Model.DTO;
+﻿using MvvmHelpers;
+using MvvmHelpers.Commands;
+using PocIndustriaTextil.Core.Model.DTO;
 using PocIndustriaTextil.Core.Services.Api;
 using PocIndustriaTextil.Core.Utils.Responses;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PocIndustriaTextil.Core.Modulos.Acesso
 {
-    public class CadastroViewModel
+    public class CadastroViewModel : BaseViewModel
     {
         readonly static HttpClient http = new HttpClient();
         IApiService apiService;
@@ -19,10 +22,12 @@ namespace PocIndustriaTextil.Core.Modulos.Acesso
             Usuario = new UsuarioCadastroDTO();
         }
 
-        public async Task Cadastro()
+        public ICommand CadastroCommand => new Command( async () => await OnCadastro());
+
+        public async Task OnCadastro()
         {
             Console.WriteLine($"=====> {Usuario.Nome} {Usuario.Sobrenome}, {Usuario.Login}, {Usuario.Senha}");
-            var result =  await apiService.PostItem<GenericResponse<UsuarioCadastroDTO>>("acesso/cadastro", Usuario);
+            var result = await apiService.PostItem<GenericResponse<UsuarioCadastroDTO>>("acesso/cadastro", Usuario);
         }
     }
 }
