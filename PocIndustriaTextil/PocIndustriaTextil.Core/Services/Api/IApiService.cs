@@ -16,7 +16,8 @@ namespace PocIndustriaTextil.Core.Services.Api
 
         Task<T> PostItem<T>(string uri, object item);
 
-        Task DeleteItem<T>(string uri, object id);
+        Task<T> DeleteItem<T>(string uri, object item);
+
 
     }
 
@@ -47,9 +48,10 @@ namespace PocIndustriaTextil.Core.Services.Api
             return await GetPutResponse<T>($"{UriBase.Uri}{uri}", item);
         }
 
-        public async Task DeleteItem<T>(string uri, object id)
+
+        public async Task<T> DeleteItem<T>(string uri, object item)
         {
-            await _http.DeleteAsync($"{UriBase.Uri}/{id}");
+            return await GetPutResponse<T>($"{UriBase.Uri}{uri}", item);
         }
 
         async Task<T> GetPostResponse<T>(string uri, object item)

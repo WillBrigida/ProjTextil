@@ -6,20 +6,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using PocIndustriaTextil.Core;
 
 namespace PocIndustriaTextil.Web.Services
 {
     public class Navigation : INavigationService
     {
-        [Inject]public NavigationManager Nav { get; set; }
+        public NavigationManager _navigation { get; }
+
+
+        public Navigation(NavigationManager navigation)
+        {
+            _navigation = navigation;
+        }
         public async Task NavigateBack()
         {
-            Nav.NavigateTo("/criancas");
+            await Task.Run(() => _navigation.NavigateTo($"/criancas"));
         }
 
         public async Task NavigateToPageAsync(string url)
         {
-            Nav.NavigateTo("/criancas/novo");
+            await Task.Run(()=> _navigation.NavigateTo($"/criancas/novo"));
         }
 
         public Task NavigateToPageAsync(string url, string parameterKey, string parameterValue)

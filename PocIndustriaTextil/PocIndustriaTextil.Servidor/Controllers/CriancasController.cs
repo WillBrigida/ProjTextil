@@ -6,6 +6,7 @@ using PocIndustriaTextil.Servidor.Data;
 using PocIndustriaTextil.Servidor.Utils;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PocIndustriaTextil.Servidor.Controllers
@@ -26,7 +27,10 @@ namespace PocIndustriaTextil.Servidor.Controllers
         {
             try
             {
-                var criancas = await _context.T_crianca.ToListAsync();
+                var criancas = await _context.T_crianca
+                    .AsNoTracking()
+                    .Where(x => x.RegistroAtivo == true)
+                    .ToListAsync();
                 return Ok(new GenericResponse<Crianca> { Success = true, Items = criancas });
             }
             catch (Exception ex)
@@ -88,6 +92,24 @@ namespace PocIndustriaTextil.Servidor.Controllers
             }
         }
 
+        [HttpPut("deletar")]
+        public async Task<ActionResult<Crianca>> DeletarPorId([FromBody] Crianca crianca)
+        {
+            try
+            {
+                crianca.RegistroAtivo = false;
+                crianca.DataDesativacao = DateTime.Now;
+
+                _context.Entry(crianca).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return Ok(new GenericResponse<Crianca> { Success = true, Item = crianca });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new GenericResponse<Crianca> { Success = false, Message = $"{MessageError.MensagemResponse}\n Erro:{ex.Message}" });
+            }
+        }
         [HttpDelete("{id}")]
         public async Task<ActionResult<Crianca>> DeletarPorId(int id)
         {

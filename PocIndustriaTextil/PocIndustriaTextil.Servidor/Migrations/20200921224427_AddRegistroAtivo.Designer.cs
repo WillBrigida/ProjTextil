@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PocIndustriaTextil.Servidor.Data;
 
 namespace PocIndustriaTextil.Servidor.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200921224427_AddRegistroAtivo")]
+    partial class AddRegistroAtivo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -235,12 +237,6 @@ namespace PocIndustriaTextil.Servidor.Migrations
                     b.Property<int>("CriancaId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("DataCriacao")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DataDesativacao")
-                        .HasColumnType("datetime(6)");
 
                     b.Property<int>("Idade")
                         .HasColumnType("int");

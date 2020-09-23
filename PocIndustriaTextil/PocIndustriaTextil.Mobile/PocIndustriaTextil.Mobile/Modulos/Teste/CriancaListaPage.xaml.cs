@@ -19,6 +19,7 @@ namespace PocIndustriaTextil.Mobile.Modulos.Teste
 
         protected override async void OnAppearing()
         {
+            VM.IsBusy = true;
             await VM.GetList();
             base.OnAppearing();
         }

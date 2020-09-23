@@ -10,6 +10,7 @@ namespace PocIndustriaTextil.Web.Modulos.Teste
 
         protected override async Task OnInitializedAsync()
         {
+            VM.IsBusy = true;
             await VM.GetList();
         }
     }

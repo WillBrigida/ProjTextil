@@ -5,7 +5,6 @@ using PocIndustriaTextil.Core.Services.Api;
 using PocIndustriaTextil.Core.Services.Navigation;
 using PocIndustriaTextil.Core.Utils.Responses;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -19,6 +18,9 @@ namespace PocIndustriaTextil.Core.Modulos.Teste.ViewModel
         INavigationService _navigation;
         IApiService apiService;
         public ObservableRangeCollection<Crianca> Items { get; set; } = new ObservableRangeCollection<Crianca>();
+
+
+
         public string DisplayMessage { get; private set; }
         #endregion
 
@@ -32,7 +34,7 @@ namespace PocIndustriaTextil.Core.Modulos.Teste.ViewModel
         #endregion
 
         #region Commands . . .
-        public ICommand RemoverCommand => new Command<Crianca>(async (obj)=> await OnRemover(obj));
+        public ICommand RemoverCommand => new Command<Crianca>(async (obj) => await OnRemover(obj));
         public ICommand NovoCommand => new Command(async () => await OnNovo());
 
         public async Task OnNovo()
@@ -44,9 +46,17 @@ namespace PocIndustriaTextil.Core.Modulos.Teste.ViewModel
 
         #region Métodos . . .
 
-        private async Task OnRemover(Crianca obj)
+        public async Task OnRemover(Crianca obj)
         {
-           await apiService.DeleteItem<GenericResponse<Crianca>>("criancas", obj.CriancaId);
+            var crianca = obj.Nome;
+            var response = await apiService.DeleteItem<GenericResponse<Crianca>>("criancas/deletar", obj);
+            if (!response.Success)
+                DisplayMessage = response.Message;
+            else
+            {
+                await Task.Run(() => Items.Remove(obj));
+                DisplayMessage = $"{crianca} foi excluido com sucesso";
+            }
         }
 
         public async Task GetList()
@@ -68,7 +78,11 @@ namespace PocIndustriaTextil.Core.Modulos.Teste.ViewModel
             {
                 Console.WriteLine($"ERRO CriancasViewModel { ex.Message }");
             }
+            finally
+            {
+              IsNotBusy = true;
+            }
         }
         #endregion
-   }
+    }
 }

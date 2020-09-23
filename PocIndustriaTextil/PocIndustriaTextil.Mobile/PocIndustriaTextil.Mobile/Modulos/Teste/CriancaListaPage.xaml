@@ -7,16 +7,25 @@
 
     <ContentPage.Content>
         <StackLayout>
-                <CollectionView 
-                ItemsSource="{Binding Items}">
-                    <CollectionView.ItemTemplate>
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" Color="Black"/>
+
+
+            <ListView 
+                x:Name="CollectionView"
+                ItemsSource="{Binding Items}" SelectionMode="Single">
+                <ListView.ItemTemplate>
                         <DataTemplate>
-                            <StackLayout>
-                                <Label Text="{Binding Nome}"/>
-                            </StackLayout>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
+                            <ViewCell>
+                                <StackLayout>
+                                    <Label Text="{Binding Nome}"/>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding BindingContext.RemoverCommand, Source={x:Reference CollectionView}}" CommandParameter="{Binding .}"/>
+                                </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </ViewCell> 
+                    </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
             <Button Text="Nova criança" Command="{Binding NovoCommand}"/>
 
